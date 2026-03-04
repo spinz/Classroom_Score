@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Classroom Score — A behavior points and rewards system for teachers.">
+  <title>Classroom Score 🏆</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+      <div class="login-container">
+        <div class="login-logo">
+          <span class="logo-icon">🏆</span>
+          <h1>Classroom Score</h1>
+          <p class="login-subtitle">Behavior points & rewards for your classroom</p>
+        </div>
+        <form id="login-form" class="login-form">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="you@school.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <button type="submit" id="login-btn" class="btn btn-primary btn-full">Sign In</button>
+          <p id="login-error" class="form-error" hidden></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard-screen" class="screen">
+      <!-- Top Nav -->
+      <nav id="top-nav" class="top-nav">
+        <div class="nav-brand">
+          <span class="nav-logo">🏆</span>
+          <span class="nav-title">Classroom Score</span>
+        </div>
+        <div class="nav-actions">
+          <button id="nav-projector" class="btn btn-ghost btn-icon" title="Projector Mode">📽️</button>
+          <button id="nav-admin" class="btn btn-ghost btn-icon" title="Admin Console" hidden>⚙️</button>
+          <button id="nav-logout" class="btn btn-ghost" title="Sign Out">Sign Out</button>
+        </div>
+      </nav>
+
+      <!-- Tab Navigation -->
+      <div class="tab-bar">
+        <button class="tab active" data-tab="students">👩‍🎓 Students</button>
+        <button class="tab" data-tab="leaderboard">🏅 Leaderboard</button>
+        <button class="tab" data-tab="shop">🎁 Shop</button>
+      </div>
+
+      <!-- Students Tab -->
+      <main id="tab-students" class="tab-content active">
+        <div class="section-header">
+          <h2>Students</h2>
+          <button id="add-student-btn" class="btn btn-primary btn-sm">+ Add Student</button>
+        </div>
+        <div id="student-list" class="student-grid">
+          <!-- Populated by JS -->
+        </div>
+      </main>
+
+      <!-- Leaderboard Tab -->
+      <main id="tab-leaderboard" class="tab-content">
+        <div class="section-header">
+          <h2>Leaderboard</h2>
+          <div class="leaderboard-controls">
+            <button id="reset-points-btn" class="btn btn-danger btn-sm">Reset All Points</button>
+          </div>
+        </div>
+        <div id="leaderboard" class="leaderboard-list">
+          <!-- Populated by JS -->
+        </div>
+      </main>
+
+      <!-- Shop Tab -->
+      <main id="tab-shop" class="tab-content">
+        <div class="section-header">
+          <h2>Rewards Shop</h2>
+          <button id="add-reward-btn" class="btn btn-primary btn-sm">+ Add Reward</button>
+        </div>
+        <div id="reward-list" class="reward-grid">
+          <!-- Populated by JS -->
+        </div>
+      </main>
+    </div>
+
+    <!-- Admin Screen -->
+    <div id="admin-screen" class="screen">
+      <nav class="top-nav">
+        <div class="nav-brand">
+          <span class="nav-logo">⚙️</span>
+          <span class="nav-title">Admin Console</span>
+        </div>
+        <div class="nav-actions">
+          <button id="admin-back" class="btn btn-ghost">← Back to Dashboard</button>
+        </div>
+      </nav>
+      <main class="admin-content">
+        <!-- Stats Overview -->
+        <section class="admin-section">
+          <h2>Overview</h2>
+          <div id="admin-stats" class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-value" id="stat-students">0</span>
+              <span class="stat-label">Students</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="stat-points">0</span>
+              <span class="stat-label">Points Awarded</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="stat-redemptions">0</span>
+              <span class="stat-label">Rewards Redeemed</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="stat-users">0</span>
+              <span class="stat-label">Users</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- User Management -->
+        <section class="admin-section">
+          <div class="section-header">
+            <h2>User Management</h2>
+            <button id="invite-user-btn" class="btn btn-primary btn-sm">+ Invite User</button>
+          </div>
+          <div id="user-list" class="user-list">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- System Controls -->
+        <section class="admin-section">
+          <h2>System Controls</h2>
+          <div class="control-grid">
+            <button id="admin-reset-points" class="btn btn-danger">Reset All Points</button>
+            <button id="admin-export" class="btn btn-secondary">Export Data (CSV)</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Projector Screen -->
+    <div id="projector-screen" class="screen">
+      <div class="projector-header">
+        <h1>🏆 Classroom Score</h1>
+        <button id="projector-exit" class="btn btn-ghost">✕ Exit</button>
+      </div>
+      <div id="projector-leaderboard" class="projector-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" class="modal-overlay" hidden>
+      <div id="modal" class="modal">
+        <div id="modal-header" class="modal-header">
+          <h3 id="modal-title"></h3>
+          <button id="modal-close" class="btn btn-ghost btn-icon">✕</button>
+        </div>
+        <div id="modal-body" class="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
